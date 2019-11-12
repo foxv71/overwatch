@@ -2,7 +2,7 @@
 
 
 ###Welcome message###
-echo "Welcome to overwatch again"
+echo "Welcome to overwatch suports redhat & debian based distros"
 
 ####Select loop###
 select opt in "users" "software"
