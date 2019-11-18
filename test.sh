@@ -5,7 +5,7 @@
 echo "Welcome to overwatch suports redhat & debian based distros"
 
 ####Select loop###
-select opt in "users" "software" "services"
+select opt in "users" "software" "services" "firewall" "logs"
 
 do
 ###Case statment for select loop var###
@@ -249,6 +249,32 @@ done
             read -p "Input the name of the service to restart :" servicename
 
             sudo systemctl restart "$servicename"
+
+            ;;
+
+            "enable service" )
+
+            read -p "Input the name of the service to restart :" servicename
+
+            sudo systemctl enable "$servicename"
+
+            ;;
+
+            "disable service" )
+
+            read -p "Input the name of the service to restart :" servicename
+
+            sudo systemctl disable "$servicename"
+
+            ;;
+
+            "back" )
+
+            break
+
+            ;;
+
+
 
 
         esac
