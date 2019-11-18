@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-###Welcome message###
+###Welcome message####
 echo "Welcome to overwatch suports redhat & debian based distros"
 
 ####Select loop###
