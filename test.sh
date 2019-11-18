@@ -274,13 +274,36 @@ done
 
             ;;
 
+          esac
+
+        done
+
+        ;;
 
 
+      "firewall")
+
+
+      select firewall in "add port" "remove port" "enable firewall" "disable firewall"
+
+      do
+
+        case $firewall in
+          "add port" )
+
+            echo "test"
+
+            ;;
+
+        esac
+
+
+
+      done
+
+
+        ;;
 
         esac
 
       done
-  esac
-
-
-done
