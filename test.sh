@@ -5,7 +5,7 @@
 echo "Welcome to overwatch suports redhat & debian based distros"
 
 ####Select loop###
-select opt in "users" "software" "services" "firewall" "logs"
+select opt in "users" "software" "services" "firewall" "network" "logs"
 
 do
 ###Case statment for select loop var###
@@ -193,7 +193,7 @@ done
 
             read -p "Input the name of the package you wish to remove :" packagename
 
-            sudo yum remove "$packagename"
+            sudo dnf remove "$packagename"
 
             ;;
 
@@ -284,22 +284,120 @@ done
       "firewall")
 
 
-      select firewall in "add port" "remove port" "enable firewall" "disable firewall"
+      if [[ -f /usr/bin/firewall-cmd ]]; then
 
-      do
+        select firewall in "add port" "remove port" "enable firewall" "disable firewall"
 
-        case $firewall in
-          "add port" )
+        do
 
-            echo "test"
+          case firewall in
 
-            ;;
+            "add port" )
 
-        esac
+            read -p "Input the port number to open :" port
+
+            read -p "Input the transport type tcp or udp :" transport
+
+            read -p "Do you want this rule to be permanent y or n if you select no then it will be lost upon reboot! :" permanent
+
+            if [[ "$permanent" == "y" ]] || [[ "$permanent" == "yes" ]]; then
+
+              sudo firewall-cmd --permanent --add-port="$port"/"$transport" && sudo firewall-cmd --reload
+
+            elif [[ "$permanent" == "n" ]] || [[ "$permanent" == "no" ]]; then
+
+              sudo firewall-cmd --add-port="$port"/"$transport"
+
+            fi
 
 
 
-      done
+              ;;
+
+
+
+              "remove port" )
+
+              read -p "Input the port number to remove :" port
+
+              read -p "Input the transport type tcp or udp :" transport
+
+              read -p "Do you want this rule to be permanent y or n if you select no then it will be lost upon reboot! :" permanent
+
+              if [[ "$permanent" == "y" ]] || [[ "$permanent" == "yes" ]]; then
+
+                sudo firewall-cmd --permanent --remove-port="$port"/"$transport" && sudo firewall-cmd --reload
+
+              elif [[ "$permanent" == "n" ]] || [[ "$permanent" == "no" ]]; then
+
+                sudo firewall-cmd --remove-port="$port"/"$transport"
+
+              fi
+
+              ;;
+
+
+
+
+              "enable firewall" )
+
+              sudo systemctl enable firewalld --now
+
+              ;;
+
+              "disable firewall" )
+
+              sudo systemctl disable firewalld --now
+
+              ;;
+
+          esac
+
+
+
+        done
+
+
+
+
+
+
+
+
+
+
+      elif [[ -f /usr/bin/ufw ]]; then
+
+        select firewall in "add port" "remove port" "enable firewall" "disable firewall"
+
+        do
+
+          case firewall in
+
+            "add port" )
+              ;;
+
+
+              "remove port" )
+
+              ;;
+
+
+              "enable firewall" )
+
+              ;;
+
+              "disable firewall" )
+
+              ;;
+
+          esac
+
+
+
+        done
+
+      fi
 
 
         ;;
