@@ -292,7 +292,7 @@ done
 
         do
 
-          case firewall in
+          case $firewall in
 
             "add port" )
 
@@ -353,11 +353,16 @@ done
 
               ;;
 
+              "back" )
+
+              break
+
+              ;;
 
 
           esac
 
-
+          break
 
         done
 
@@ -372,11 +377,11 @@ done
 
       elif [[ -f /usr/sbin/ufw ]]; then
 
-        select firewall in "add port" "remove port" "enable firewall" "disable firewall"
+        select firewall in "add port" "remove port" "enable firewall" "disable firewall" "back"
 
         do
 
-          case firewall in
+          case $firewall in
 
             "add port" )
 
@@ -421,14 +426,14 @@ done
           esac
 
 
-
         done
 
       fi
 
 
-        ;;
+      ;;
 
         esac
+
 
       done
