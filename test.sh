@@ -366,7 +366,7 @@ done
 
 
 
-      elif [[ -f /usr/bin/ufw ]]; then
+      elif [[ -f /usr/sbin/ufw ]]; then
 
         select firewall in "add port" "remove port" "enable firewall" "disable firewall"
 
@@ -375,19 +375,36 @@ done
           case firewall in
 
             "add port" )
+
+            read -p "Input the port number to open :" port
+
+            read -p "Input the transport type tcp or udp :" transport
+
+            sudo ufw allow "$port"/"$transport"
+
               ;;
 
 
               "remove port" )
+
+              read -p "Input the port number to remove :" port
+
+              read -p "Input the transport type tcp or udp :" transport
+
+              sudo ufw deny "$port"/"$transport"
 
               ;;
 
 
               "enable firewall" )
 
+              sudo ufw enable
+
               ;;
 
               "disable firewall" )
+
+              sudo ufw disable
 
               ;;
 
