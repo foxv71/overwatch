@@ -288,7 +288,7 @@ done
 
       if [[ -f /usr/bin/firewall-cmd ]]; then
 
-        select firewall in "add port" "remove port" "enable firewall" "disable firewall"
+        select firewall in "add port" "remove port" "enable firewall" "disable firewall" "back"
 
         do
 
@@ -350,6 +350,12 @@ done
               "disable firewall" )
 
               sudo systemctl disable firewalld --now
+
+              ;;
+
+              "back")
+
+              break
 
               ;;
 
