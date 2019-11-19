@@ -353,11 +353,7 @@ done
 
               ;;
 
-              "back")
 
-              break
-
-              ;;
 
           esac
 
@@ -413,6 +409,12 @@ done
               "disable firewall" )
 
               sudo ufw disable
+
+              ;;
+
+              "back")
+
+              break
 
               ;;
 
