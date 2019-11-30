@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cat logo
 
 ###Welcome message####
 echo "Welcome to overwatch supports redhat & debian based distros"
@@ -432,6 +433,124 @@ done
 
 
       ;;
+
+
+
+      "network")
+
+      sudo systemctl status NetworkManager &> /dev/null
+
+      networktype="$?"
+
+      if [[ "$networktype" == "0" ]]; then
+
+
+          select net in "show interfaces" "autoconnect setting"  "update ipv4 address" "update ipv4 gateway" "update dns"
+
+          do
+
+            case "$net" in
+
+
+              "show interfaces" )
+
+              sudo nmcli con show
+
+
+                ;;
+
+                "autoconnect setting" )
+
+                sudo nmcli con show
+
+                read -p "Please input the name of the interface to mod as shown :" networkinterface
+
+                read -p "Do you want this interface to connect on boot up? y or n :" interfaceboot
+
+                if [[ "$interfaceboot" == "y" || "Y" || "yes" || "Yes" || "YES" ]]; then
+
+                    sudo nmcli con mod "$networkinterface" autoconnect yes
+
+
+
+              elif [[ "$interfaceboot" == "n" || "N" || "no" || "No" || "NO" ]]; then
+
+                sudo nmcli con mod "$networkinterface" autoconnect no
+
+
+              fi
+
+
+                ;;
+
+            
+
+
+
+
+
+
+                "update ipv4 address" )
+
+                sudo nmcli con show
+
+                read -p "Please input the name of the interface to mod as shown :" networkinterface
+
+                sudo nmcli con mod "$networkinterface" ipv4.address
+
+                ;;
+
+
+
+
+
+
+                "update ipv4 gateway" )
+
+                sudo nmcli con show
+
+                read -p "Please input the name of the interface to mod as shown :" networkinterface
+
+                sudo nmcli con mod "$networkinterface" ipv4.address
+
+                ;;
+
+
+              esac
+
+
+
+
+
+
+
+
+done
+
+
+
+
+
+
+
+
+elif [[ "$networktype" == "3" || "4" ]]; then
+
+
+        echo "Working on it :)"
+
+
+
+
+
+
+      fi
+
+
+
+
+
+
 
         esac
 
